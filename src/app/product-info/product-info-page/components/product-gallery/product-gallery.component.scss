@@ -1,0 +1,29 @@
+@import 'variables';
+
+.pics__wrapper {
+  margin-bottom: 20px;
+}
+
+.pics__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 20px;
+}
+
+.pics__link {
+  border-bottom: 3px solid transparent;
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+}
+
+.pics__link:focus,
+.pics__link:hover {
+  border-color: $mainPink;
+}
+
+.pics__link--current {
+  border-color: $mainPink;
+}

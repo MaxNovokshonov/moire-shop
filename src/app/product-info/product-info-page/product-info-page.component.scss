@@ -1,0 +1,8 @@
+.item {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 55px 30px;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+}

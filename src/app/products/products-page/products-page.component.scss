@@ -1,0 +1,15 @@
+.content {
+  &__top--catalog {
+    margin-left: 310px;
+    text-align: center;
+  }
+
+  &__catalog {
+    display: grid;
+    grid-template-columns: 290px 1fr;
+    grid-gap: 20px;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+  }
+}

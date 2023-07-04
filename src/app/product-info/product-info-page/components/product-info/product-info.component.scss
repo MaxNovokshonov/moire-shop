@@ -1,0 +1,95 @@
+@import 'variables';
+
+.item {
+  &__desc {
+    grid-column: 1/-1;
+  }
+
+  &__content {
+    width: 595px;
+    padding-top: 50px;
+
+    h3 {
+      margin: 25px 0 5px;
+      font-size: 16px;
+      line-height: 24px;
+      font-weight: 500;
+    }
+
+    p {
+      margin: 0 0 20px;
+      font-size: 16px;
+      line-height: 28px;
+      color: $mainGrey;
+      font-weight: 300;
+    }
+
+    a {
+      border-bottom: 2px dashed $mainGrey;
+      -webkit-transition: all 0.2s ease;
+      transition: all 0.2s ease;
+      font-size: 14px;
+      line-height: 22px;
+      color: $mainGrey;
+    }
+
+    a:focus,
+    a:hover {
+      border-color: transparent;
+    }
+  }
+}
+
+.tabs {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-bottom: 1px solid $borderGray;
+
+  &__item:not(:last-child) {
+    margin-right: 20px;
+  }
+
+  &__link {
+    position: relative;
+    display: block;
+    padding: 15px 25px;
+    font-size: 18px;
+    color: $breadcrumbs;
+  }
+
+  &__link::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    border-radius: 20px;
+    background-color: transparent;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+  }
+
+  &__link:focus::after,
+  &__link:hover::after {
+    bottom: -1px;
+    background-color: $mainPink;
+  }
+
+  &__link--current {
+    color: $mainGrey;
+    font-weight: 700;
+  }
+
+  &__link--current::after {
+    bottom: -1px;
+    background-color: $mainPink;
+  }
+}

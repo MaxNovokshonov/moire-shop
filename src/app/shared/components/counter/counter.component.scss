@@ -1,0 +1,57 @@
+@import 'variables';
+
+.form {
+  &__counter,
+  &__counter button {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    width: 150px;
+    height: 70px;
+    background-color: $white;
+  }
+
+  &__counter button {
+    margin: 0;
+    padding: 0;
+    font: inherit;
+    background-color: transparent;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 1px solid $borderGray;
+    width: 37px;
+    height: 37px;
+    flex-shrink: 0;
+    cursor: pointer;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+  }
+
+  &__counter button:focus,
+  &__counter button:hover {
+    background-color: $mainGrey;
+    color: $white;
+  }
+
+  &__counter input {
+    padding: 23px 5px;
+    height: 70px;
+    width: 70px;
+    border-radius: 0;
+    background-color: transparent;
+    border: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    color: $mainGrey;
+    font: inherit;
+    font-size: 24px;
+    line-height: 1;
+    text-align: center;
+  }
+}

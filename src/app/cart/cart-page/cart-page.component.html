@@ -1,0 +1,26 @@
+<main class="content container">
+  <div class="content__top">
+    <app-breadcrumbs></app-breadcrumbs>
+
+    <app-page-title></app-page-title>
+  </div>
+
+  <section class="cart">
+    <form class="cart__form form">
+      <div class="cart__field">
+        <ul class="cart__list">
+          <app-cart-item></app-cart-item>
+          <app-cart-item></app-cart-item>
+          <app-cart-item></app-cart-item>
+        </ul>
+      </div>
+
+      <div class="cart__block">
+        <p class="cart__desc">Мы&nbsp;посчитаем стоимость доставки на&nbsp;следующем этапе</p>
+        <p class="cart__price">Итого: <span>4 070 ₽</span></p>
+
+        <button class="cart__button button button--primary" type="submit">Оформить заказ</button>
+      </div>
+    </form>
+  </section>
+</main>
