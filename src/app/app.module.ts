@@ -4,9 +4,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
-import { ProductsModule } from './products/products.module';
-import { ProductInfoModule } from './product-info/product-info.module';
-import { CartModule } from './cart/cart.module';
+import { ProductsModule } from './routing/products-page/products.module';
+import { ProductInfoModule } from './routing/product-info-page/product-info.module';
+import { CartModule } from './routing/cart-page/cart.module';
+import { OrderPageModule } from './routing/order-page/order-page.module';
+import { ConfirmPageModule } from './routing/confirm-page/confirm-page.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,6 +19,8 @@ import { CartModule } from './cart/cart.module';
     ProductsModule,
     ProductInfoModule,
     CartModule,
+    OrderPageModule,
+    ConfirmPageModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
