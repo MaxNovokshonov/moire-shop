@@ -150,6 +150,44 @@ a {
     color: $mainGrey;
   }
 
+  &__value {
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    font-size: 12px;
+    line-height: 1;
+    color: $formGray;
+    font-weight: 300;
+  }
+
+  &__input {
+    padding: 28px 45px 13px 20px;
+    width: 100%;
+    height: 65px;
+    border-radius: 1px;
+    border: 1px solid transparent;
+    background-color: $inputBackground;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+    color: $mainGrey;
+    font-size: 16px;
+    font-family: inherit;
+    line-height: 1;
+  }
+
+  &__input:focus,
+  &__input:hover {
+    outline: 0;
+    border-color: $mainGrey;
+  }
+
+  &__input--area {
+    height: 140px;
+    resize: none;
+  }
+
   &__label:not(:last-child) {
     margin-bottom: 25px;
   }
@@ -238,7 +276,7 @@ a {
     transform: translate(-50%, -50%);
     width: 26px;
     height: 26px;
-    border: 1px solid transparent;
+    border: 1px solid $borderGray;
   }
 
   &__label:focus &__value::before,

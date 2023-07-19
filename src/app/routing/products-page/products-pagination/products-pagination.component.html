@@ -1,0 +1,25 @@
+<ul class="catalog__pagination pagination">
+  <li (click)="prevPage()" class="pagination__item">
+    <a
+      class="pagination__link pagination__link--arrow"
+      [class.pagination__link--disabled]="pagination.page === 1"
+    >
+      <svg width="8" height="14" fill="currentColor">
+        <use xlink:href="assets/img/svg/iconSprite.svg#icon-arrow-left"></use>
+      </svg>
+    </a>
+  </li>
+  <li class="pagination__item">
+    <a class="pagination__link pagination__link--current"> {{ pagination.page }} </a>
+  </li>
+  <li (click)="nextPage()" class="pagination__item">
+    <a
+      class="pagination__link pagination__link--arrow"
+      [class.pagination__link--disabled]="pagination.page === pagination.pages"
+    >
+      <svg width="8" height="14" fill="currentColor">
+        <use xlink:href="assets/img/svg/iconSprite.svg#icon-arrow-right"></use>
+      </svg>
+    </a>
+  </li>
+</ul>

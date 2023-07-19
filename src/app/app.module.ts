@@ -9,11 +9,13 @@ import { ProductInfoModule } from './routing/product-info-page/product-info.modu
 import { CartModule } from './routing/cart-page/cart.module';
 import { OrderPageModule } from './routing/order-page/order-page.module';
 import { ConfirmPageModule } from './routing/confirm-page/confirm-page.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     SharedModule,
     ProductsModule,

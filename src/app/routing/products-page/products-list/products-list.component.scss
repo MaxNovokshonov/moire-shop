@@ -1,4 +1,4 @@
-@import '../../../../assets/scss/variables';
+@import 'variables';
 
 .catalog {
   display: -webkit-box;
@@ -21,71 +21,5 @@
 
   &__pagination {
     margin-top: auto;
-  }
-}
-
-.pagination {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-
-  &__item:first-child {
-    margin-right: 25px;
-  }
-
-  &__item:last-child {
-    margin-left: 25px;
-  }
-
-  &__link {
-    display: block;
-    padding: 13px 3px;
-    height: 40px;
-    min-width: 40px;
-    font-size: 16px;
-    line-height: 1;
-    color: $paginationLink;
-    text-align: center;
-    -webkit-transition: all 0.2s ease;
-    transition: all 0.2s ease;
-  }
-
-  &__link[href]:not(:disabled):focus,
-  &__link[href]:not(:disabled):hover {
-    color: $mainGrey;
-  }
-
-  &__link--current {
-    color: $mainGrey;
-    font-weight: 700;
-  }
-
-  &__link--arrow {
-    border: 1px solid $borderGray;
-    border-radius: 50%;
-  }
-
-  &__link--arrow:focus,
-  &__link--arrow:hover {
-    border-color: $mainGrey;
-  }
-
-  &__link--disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
-
-  &__link--disabled:focus,
-  &__link--disabled:hover {
-    border-color: $borderGray;
   }
 }
