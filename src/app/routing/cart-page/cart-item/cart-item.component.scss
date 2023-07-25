@@ -27,6 +27,7 @@
   }
 
   &__info {
+
     margin: 0;
     grid-column: 2/3;
     grid-row: 2/3;
@@ -35,6 +36,7 @@
     color: $formGray;
 
     &--color span {
+      margin-bottom: 20px;
       position: relative;
       display: inline-block;
       padding-left: 30px;

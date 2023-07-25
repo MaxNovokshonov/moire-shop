@@ -1,23 +1,78 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy } from '@angular/core';
 import { ProductInfo } from '../../../common/interfaces/productInfo';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { BasketParams } from '../../../common/interfaces/basket';
+import { BasketService } from '../../../services/basket.service';
+import { Subscription } from 'rxjs';
+import { PictureService } from '../../../services/picture.service';
 
 @Component({
   selector: 'app-product-form',
   templateUrl: './product-form.component.html',
   styleUrls: ['./product-form.component.scss'],
 })
-export class ProductFormComponent {
+export class ProductFormComponent implements OnChanges, OnDestroy {
   @Input() product: ProductInfo;
   cartForm: FormGroup;
+  quantity = 1;
+  basket: BasketParams;
+  colorSubscription = new Subscription();
+  successMessage = false;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private basketService: BasketService,
+    private pictureService: PictureService,
+  ) {
     this.cartForm = this.fb.group({
-      size: [null],
+      size: [null, Validators.required],
+      color: [null, Validators.required],
     });
   }
 
+  ngOnChanges(): void {
+    this.colorSubscription = this.color.valueChanges.subscribe((value: number) => {
+      this.pictureService.setSelectedColor(value);
+    });
+  }
+
+  get size(): FormControl {
+    return this.cartForm.get('size') as FormControl;
+  }
+
+  get color(): FormControl {
+    return this.cartForm.get('color') as FormControl;
+  }
+
   submit() {
-    console.log(this.cartForm.value);
+    if (this.cartForm.invalid) {
+      return;
+    }
+
+    this.basket = {
+      productId: this.product.id,
+      colorId: this.color.value,
+      sizeId: this.size.value,
+      quantity: this.quantity,
+    };
+    console.log(this.basket);
+
+    this.basketService.addProductToBasket(this.basket).subscribe((response) => {
+      this.successMessage = true;
+      if (!this.basketService.isAuthenticated()) {
+        this.basketService.setAccessKey(response.user.accessKey);
+      }
+      setTimeout(() => {
+        this.successMessage = false;
+      }, 1500);
+    });
+  }
+
+  setQuantity(amount: number) {
+    this.quantity = amount;
+  }
+
+  ngOnDestroy(): void {
+    this.colorSubscription.unsubscribe();
   }
 }

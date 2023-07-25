@@ -4,7 +4,7 @@
   <div class="item__form">
     <form [formGroup]="cartForm" (ngSubmit)="submit()" class="form">
       <div class="item__row item__row--center">
-        <app-counter></app-counter>
+        <app-counter (amount)="setQuantity($event)"></app-counter>
 
         <b class="item__price"> {{ product.price | number }} ₽ </b>
       </div>
@@ -15,7 +15,12 @@
           <ul class="colors colors--black">
             <li *ngFor="let color of product.colors" class="colors__item">
               <label class="colors__label">
-                <input class="colors__radio sr-only" type="radio" />
+                <input
+                  class="colors__radio sr-only"
+                  type="radio"
+                  formControlName="color"
+                  [value]="color.color.id"
+                />
                 <span class="colors__value" [style.background-color]="color.color.code"> </span>
               </label>
             </li>
@@ -34,7 +39,17 @@
         </fieldset>
       </div>
 
-      <button class="item__button button button--primary" type="submit">В корзину</button>
+      <span
+        *ngIf="cartForm.invalid && !cartForm.pristine"
+        class="form-error">Не выбран размер или цвет</span>
+
+      <button
+        [disabled]="cartForm.invalid"
+        class="item__button button button--primary" type="submit">В корзину</button>
+
+      <span
+        *ngIf="successMessage"
+        class="form-success">Товар добавлен в корзину</span>
     </form>
   </div>
 </div>

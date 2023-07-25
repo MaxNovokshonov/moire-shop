@@ -52,6 +52,10 @@
   align-items: center;
   border-bottom: 1px solid $borderGray;
 
+  &__item {
+    cursor: pointer;
+  }
+
   &__item:not(:last-child) {
     margin-right: 20px;
   }

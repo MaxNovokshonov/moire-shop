@@ -1,32 +1,50 @@
-<div class="item__pics pics">
+<div *ngIf="product; else loading" class="item__pics pics">
   <div class="pics__wrapper">
     <img
       width="570"
       height="570"
-      src="../../../../assets/img/product-square-1.jpg"
-      alt="Название товара"
+      [src]="imageUrl"
+      [alt]="product.title"
     />
   </div>
   <ul class="pics__list">
-    <li class="pics__item">
-      <a href="" class="pics__link pics__link--current">
+    <li
+      *ngFor="let photo of product.colors"
+      (click)="setImageByColor(photo.color.id)"
+      class="pics__item">
+      <a class="pics__link pics__link--current"
+      [class.pics__link--current]="!photo"
+      >
         <img
+          *ngIf="photo.gallery; else noImagePreview"
           width="98"
           height="98"
-          src="../../../../assets/img/product-square-2.jpg"
-          alt="Название товара"
-        />
-      </a>
-    </li>
-    <li class="pics__item">
-      <a href="" class="pics__link">
-        <img
-          width="98"
-          height="98"
-          src="../../../../assets/img/product-square-3.jpg"
-          alt="Название товара"
+          [src]="photo.gallery[0].file.url"
+          [alt]="product.title"
         />
       </a>
     </li>
   </ul>
 </div>
+
+<ng-template #loading>
+  <app-loader></app-loader>
+</ng-template>
+
+<ng-template #noImage>
+  <img
+       width="570"
+       height="570"
+       src="/assets/img/image_not_found.jpg"
+       [alt]="product.title"
+  />
+</ng-template>
+
+<ng-template #noImagePreview>
+  <img
+    width="98"
+    height="98"
+    src="/assets/img/image_not_found.jpg"
+    [alt]="product.title"
+  />
+</ng-template>

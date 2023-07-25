@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductsService } from '../../services/products.service';
 import { switchMap } from 'rxjs';
 import { ActivatedRoute, Params } from '@angular/router';
-import { ProductInfo } from '../../common/interfaces/productInfo';
+import { ProductColor, ProductInfo } from '../../common/interfaces/productInfo';
 
 @Component({
   selector: 'app-product-info-page',

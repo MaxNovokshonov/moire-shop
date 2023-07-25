@@ -4,6 +4,7 @@ export interface ProductCategory {
   title: string;
 }
 
+
 export interface ProductColor {
   color: {
     code: string;

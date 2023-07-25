@@ -8,6 +8,7 @@ import { PageTitleComponent } from './components/page-title/page-title.component
 import { OrderInfoComponent } from './components/order-info/order-info.component';
 import { LoaderComponent } from './components/loader/loader.component';
 import { RouterLink } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,7 @@ import { RouterLink } from '@angular/router';
     OrderInfoComponent,
     LoaderComponent,
   ],
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, ReactiveFormsModule],
   exports: [
     HeaderComponent,
     FooterComponent,

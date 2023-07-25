@@ -5,13 +5,16 @@
     <app-page-title></app-page-title>
   </div>
 
-  <section class="cart">
+  <section
+    *ngIf="basket; else loading"
+    class="cart">
     <form class="cart__form form">
       <div class="cart__field">
         <ul class="cart__list">
-          <app-cart-item></app-cart-item>
-          <app-cart-item></app-cart-item>
-          <app-cart-item></app-cart-item>
+          <app-cart-item
+          *ngFor="let product of basket.items"
+          [product]="product"
+          ></app-cart-item>
         </ul>
       </div>
 
@@ -24,3 +27,7 @@
     </form>
   </section>
 </main>
+
+<ng-template #loading>
+  <app-loader></app-loader>
+</ng-template>

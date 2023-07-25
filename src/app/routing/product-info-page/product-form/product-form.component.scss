@@ -1,4 +1,4 @@
-@import '../../../../assets/scss/variables';
+@import 'variables';
 
 .item {
   &__code {
@@ -39,4 +39,17 @@
     -ms-flex-align: center;
     align-items: center;
   }
+}
+
+.form-error {
+  display: block;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  color: $mainPink;
+}
+
+.form-success {
+  display: block;
+  padding-top: 15px;
+  color: $mainGrey;
 }

@@ -18,15 +18,6 @@ export class ProductsListComponent implements OnInit {
     this.getProducts();
   }
 
-  getProducts1() {
-    this.filterService.params$.subscribe((params) => {
-      this.productsService.getAllProducts(params).subscribe((response) => {
-        this.products = response;
-        this.filterService.productsCount = response.pagination.total;
-      });
-    });
-  }
-
   getProducts() {
     this.filterService.params$
       .pipe(
