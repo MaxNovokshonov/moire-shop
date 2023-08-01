@@ -1,6 +1,11 @@
 <main class="content container">
   <div class="content__top">
-    <app-breadcrumbs></app-breadcrumbs>
+    <app-breadcrumbs
+      *ngIf="product"
+      [categoryID]="product.category.id"
+      [categoryTitle]="product.category.title"
+      [productTitle]="product.title"
+    ></app-breadcrumbs>
   </div>
 
   <section class="item">

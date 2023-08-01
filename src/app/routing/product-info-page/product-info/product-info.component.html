@@ -1,26 +1,18 @@
 <div class="item__desc">
   <ul class="tabs">
     <li class="tabs__item">
-      <a
-        (click)="setActiveTab('productInfo')"
-        class="tabs__link"
-        [class.tabs__link--current]="activeTab === 'productInfo'"
-      >
+      <a (click)="setInfo()" class="tabs__link" [class.tabs__link--current]="!activeTab">
         Информация о товаре
       </a>
     </li>
     <li class="tabs__item">
-      <a
-        (click)="setActiveTab('productDelivery')"
-        class="tabs__link"
-        [class.tabs__link--current]="activeTab === 'productDelivery'"
-      >
+      <a (click)="setDelivery()" class="tabs__link" [class.tabs__link--current]="activeTab">
         Доставка и возврат
       </a>
     </li>
   </ul>
 
-  <div *ngIf="activeTab === 'productInfo'" class="item__content">
+  <div *ngIf="!activeTab" class="item__content">
     <h3>Состав:</h3>
 
     <p>
@@ -38,7 +30,7 @@
       Не подвергать химчистке<br />
     </p>
   </div>
-  <div *ngIf="activeTab === 'productDelivery'" class="item__content">
+  <div *ngIf="activeTab" class="item__content">
     <h3>Доставка:</h3>
 
     <p>

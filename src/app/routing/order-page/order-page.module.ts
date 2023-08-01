@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { OrderPageComponent } from './order-page.component';
 import { SharedModule } from '../../shared/shared.module';
 import { RouterModule } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [OrderPageComponent],
@@ -10,6 +11,7 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     SharedModule,
     RouterModule.forChild([{ path: '', component: OrderPageComponent }]),
+    ReactiveFormsModule,
   ],
   exports: [OrderPageComponent],
 })

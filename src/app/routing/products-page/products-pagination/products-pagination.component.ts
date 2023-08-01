@@ -8,9 +8,9 @@ import { FilterService } from '../../../services/filter.service';
   styleUrls: ['./products-pagination.component.scss'],
 })
 export class ProductsPaginationComponent {
-  constructor(private filterService: FilterService) {}
-
   @Input() pagination: Pagination;
+
+  constructor(private filterService: FilterService) {}
 
   prevPage() {
     if (!this.pagination) {

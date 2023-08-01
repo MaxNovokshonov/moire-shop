@@ -59,9 +59,8 @@ export class ProductFormComponent implements OnChanges, OnDestroy {
 
     this.basketService.addProductToBasket(this.basket).subscribe((response) => {
       this.successMessage = true;
-      if (!this.basketService.isAuthenticated()) {
-        this.basketService.setAccessKey(response.user.accessKey);
-      }
+
+      this.basketService.cartTotalQuantity.next(this.basketService.getTotalQuantity(response));
       setTimeout(() => {
         this.successMessage = false;
       }, 1500);

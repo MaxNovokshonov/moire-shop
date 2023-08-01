@@ -28,6 +28,11 @@ const routes: Routes = [
       import('./routing/confirm-page/confirm-page.module').then((m) => m.ConfirmPageModule),
   },
   {
+    path: 'category/:id',
+    loadChildren: () =>
+      import('./routing/products-page/products.module').then((m) => m.ProductsModule),
+  },
+  {
     path: '**',
     loadChildren: () =>
       import('./routing/not-found-page/not-found-page.module').then((m) => m.NotFoundPageModule),

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FilterService } from '../../services/filter.service';
 import { BasketService } from '../../services/basket.service';
 
@@ -7,7 +7,7 @@ import { BasketService } from '../../services/basket.service';
   templateUrl: './products-page.component.html',
   styleUrls: ['./products-page.component.scss'],
 })
-export class ProductsPageComponent implements OnInit {
+export class ProductsPageComponent implements OnInit, OnDestroy {
   constructor(private filterService: FilterService, private basketService: BasketService) {}
 
   ngOnInit(): void {
@@ -25,5 +25,9 @@ export class ProductsPageComponent implements OnInit {
         console.log(response);
       });
     }
+  }
+
+  ngOnDestroy(): void {
+    this.filterService.resetParams();
   }
 }

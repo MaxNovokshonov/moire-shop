@@ -1,6 +1,7 @@
 <div *ngIf="product; else loading" class="item__pics pics">
   <div class="pics__wrapper">
     <img
+      *ngIf="imageUrl; else noImage"
       width="570"
       height="570"
       [src]="imageUrl"
@@ -11,10 +12,9 @@
     <li
       *ngFor="let photo of product.colors"
       (click)="setImageByColor(photo.color.id)"
-      class="pics__item">
-      <a class="pics__link pics__link--current"
-      [class.pics__link--current]="!photo"
-      >
+      class="pics__item"
+    >
+      <a class="pics__link pics__link--current" [class.pics__link--current]="!photo">
         <img
           *ngIf="photo.gallery; else noImagePreview"
           width="98"
@@ -32,19 +32,9 @@
 </ng-template>
 
 <ng-template #noImage>
-  <img
-       width="570"
-       height="570"
-       src="/assets/img/image_not_found.jpg"
-       [alt]="product.title"
-  />
+  <img width="570" height="570" src="/assets/img/image_not_found.jpg" [alt]="product.title" />
 </ng-template>
 
 <ng-template #noImagePreview>
-  <img
-    width="98"
-    height="98"
-    src="/assets/img/image_not_found.jpg"
-    [alt]="product.title"
-  />
+  <img width="98" height="98" src="/assets/img/image_not_found.jpg" [alt]="product.title" />
 </ng-template>

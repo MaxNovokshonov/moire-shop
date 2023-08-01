@@ -27,6 +27,10 @@ export class FilterService {
     this.params$.next({ ...this.params$.value, page: value });
   }
 
+  setCategory(value: number) {
+    this.params$.next({ ...this.params$.value, categoryId: value });
+  }
+
   setParams(value: FilterParams) {
     this.params$.next(value);
   }

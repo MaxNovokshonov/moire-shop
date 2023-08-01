@@ -24,13 +24,18 @@
       </span>
     </div>
   </div>
-  <span class="product__code"> Артикул: {{ product.product.id }} </span>
+  <span class="product__code"> Артикул: {{ product.id }} </span>
 
   <app-counter [counter]="product.quantity" (amount)="changeQuantity($event)"></app-counter>
 
   <span class="product__price"> {{ itemTotalPrice }} ₽ </span>
 
-  <button class="product__del button-del" type="button" aria-label="Удалить товар из корзины">
+  <button
+    (click)="deleteProduct(product.id)"
+    class="product__del button-del"
+    type="button"
+    aria-label="Удалить товар из корзины"
+  >
     <svg width="20" height="20" fill="currentColor">
       <use xlink:href="assets/img/svg/iconSprite.svg#icon-close"></use>
     </svg>

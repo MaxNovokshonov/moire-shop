@@ -70,6 +70,7 @@ export class ProductsFilterComponent implements OnInit {
       });
       this.materials = materials;
     });
+
     this.productsService.getAllSeasons().subscribe((seasons) => {
       seasons.forEach((x) => {
         this.seasonsArray.push(this.fb.control(false));

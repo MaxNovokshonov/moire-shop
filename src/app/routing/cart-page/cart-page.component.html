@@ -1,28 +1,37 @@
 <main class="content container">
   <div class="content__top">
-    <app-breadcrumbs></app-breadcrumbs>
+    <app-breadcrumbs [cart]="true"></app-breadcrumbs>
 
-    <app-page-title></app-page-title>
+    <app-page-title title="корзина" [count]="basketTotalQuantity"></app-page-title>
   </div>
 
-  <section
-    *ngIf="basket; else loading"
-    class="cart">
+  <section *ngIf="basket; else loading" class="cart">
     <form class="cart__form form">
       <div class="cart__field">
         <ul class="cart__list">
           <app-cart-item
-          *ngFor="let product of basket.items"
-          [product]="product"
+            *ngFor="let product of basket.items"
+            [product]="product"
+            (deleteProductEmit)="updateBasket($event)"
+            (updateProductEmit)="updateBasket($event)"
           ></app-cart-item>
         </ul>
       </div>
 
       <div class="cart__block">
         <p class="cart__desc">Мы&nbsp;посчитаем стоимость доставки на&nbsp;следующем этапе</p>
-        <p class="cart__price">Итого: <span>4 070 ₽</span></p>
+        <p class="cart__price">
+          Итого: <span>{{ cartTotalPrice }} ₽</span>
+        </p>
 
-        <button class="cart__button button button--primary" type="submit">Оформить заказ</button>
+        <button
+          *ngIf="basketTotalQuantity !== 0"
+          [routerLink]="['/order']"
+          class="cart__button button button--primary"
+          type="button"
+        >
+          Оформить заказ
+        </button>
       </div>
     </form>
   </section>

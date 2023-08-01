@@ -66,12 +66,7 @@
     </fieldset>
 
     <button class="filter__submit button button--primary" type="submit">Применить</button>
-    <button
-      *ngIf="!filterForm.pristine"
-      (click)="clearForm()"
-      class="filter__reset button button--second"
-      type="button"
-    >
+    <button (click)="clearForm()" class="filter__reset button button--second" type="button">
       Сбросить
     </button>
   </form>

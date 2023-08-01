@@ -1,11 +1,9 @@
 <main class="content container">
   <div class="content__top">
-    <app-breadcrumbs></app-breadcrumbs>
-
-    <app-page-title></app-page-title>
+    <app-page-title *ngIf="order" title="Заказ оформлен" [basketNumber]="order.id"></app-page-title>
   </div>
 
-  <section class="cart">
+  <section *ngIf="order; else loading" class="cart">
     <form class="cart__form form" action="#" method="POST">
       <div class="cart__field">
         <p class="cart__message">
@@ -17,28 +15,48 @@
         <ul class="dictionary">
           <li class="dictionary__item">
             <span class="dictionary__key"> Получатель </span>
-            <span class="dictionary__value"> Иванова Василиса Алексеевна </span>
+            <span class="dictionary__value"> {{ order.name }} </span>
           </li>
           <li class="dictionary__item">
             <span class="dictionary__key"> Адрес доставки </span>
-            <span class="dictionary__value"> Москва, ул. Ленина, 21, кв. 33 </span>
+            <span class="dictionary__value"> {{ order.address }} </span>
           </li>
           <li class="dictionary__item">
             <span class="dictionary__key"> Телефон </span>
-            <span class="dictionary__value"> 8 800 989 74 84 </span>
+            <span class="dictionary__value"> {{ order.phone }} </span>
           </li>
           <li class="dictionary__item">
             <span class="dictionary__key"> Email </span>
-            <span class="dictionary__value"> lalala@mail.ru </span>
+            <span class="dictionary__value"> {{ order.email }} </span>
           </li>
           <li class="dictionary__item">
             <span class="dictionary__key"> Способ оплаты </span>
-            <span class="dictionary__value"> картой при получении </span>
+            <span class="dictionary__value"> {{ order.paymentType }} </span>
+          </li>
+          <li *ngIf="order.comment" class="dictionary__item">
+            <span class="dictionary__key"> Комментарий </span>
+            <span class="dictionary__value"> {{ order.comment }} </span>
           </li>
         </ul>
       </div>
 
-      <app-order-info></app-order-info>
+      <app-order-info
+        [products]="order.basket.items"
+        [deliveryPrice]="order.deliveryType.price"
+      ></app-order-info>
+      <div class="cart__total">
+        <p>
+          Доставка: <b>{{ order.deliveryType.price }}</b>
+        </p>
+        <p>
+          Итого: <b>{{ orderTotalQuantity }}</b> товара на сумму
+          <b>{{ order.totalPrice | number }} ₽</b>
+        </p>
+      </div>
     </form>
   </section>
 </main>
+
+<ng-template #loading>
+  <app-loader></app-loader>
+</ng-template>

@@ -1,44 +1,82 @@
 <main class="content container">
   <div class="content__top">
-    <app-breadcrumbs></app-breadcrumbs>
+    <app-breadcrumbs [order]="true"></app-breadcrumbs>
 
-    <app-page-title></app-page-title>
+    <app-page-title title="оформление заказа"></app-page-title>
   </div>
 
-  <section class="cart">
-    <form class="cart__form form" action="#" method="POST">
+  <section *ngIf="basket; else loading" class="cart">
+    <form
+      [formGroup]="orderForm"
+      (ngSubmit)="submit()"
+      class="cart__form form"
+      action="#"
+      method="POST"
+    >
       <div class="cart__field">
         <div class="cart__data">
           <label class="form__label">
             <input
               class="form__input"
               type="text"
-              name="name"
+              formControlName="name"
               placeholder="Введите ваше полное имя"
             />
             <span class="form__value">ФИО</span>
+            <span *ngIf="name.errors?.['required'] && name.touched" class="form__error"
+              >Поле обязательно для заполнения</span
+            >
           </label>
 
           <label class="form__label">
-            <input class="form__input" type="text" name="address" placeholder="Введите ваш адрес" />
+            <input
+              class="form__input"
+              type="text"
+              formControlName="address"
+              placeholder="Введите ваш адрес"
+            />
             <span class="form__value">Адрес доставки</span>
+            <span *ngIf="address.errors?.['required'] && address.touched" class="form__error"
+              >Поле обязательно для заполнения</span
+            >
           </label>
 
           <label class="form__label">
-            <input class="form__input" type="tel" name="phone" placeholder="Введите ваш телефон" />
+            <input
+              class="form__input"
+              type="text"
+              formControlName="phone"
+              placeholder="Введите ваш телефон"
+            />
             <span class="form__value">Телефон</span>
-            <span class="form__error">Неверный формат телефона</span>
+            <span *ngIf="phone.errors?.['required'] && phone.touched" class="form__error"
+              >Поле обязательно для заполнения</span
+            >
+            <span *ngIf="phone.errors?.['pattern'] && phone.touched" class="form__error"
+              >Введите номер телефона в формате +79991112233</span
+            >
           </label>
 
           <label class="form__label">
-            <input class="form__input" type="email" name="email" placeholder="Введи ваш Email" />
+            <input
+              class="form__input"
+              type="email"
+              formControlName="email"
+              placeholder="Введите ваш Email"
+            />
             <span class="form__value">Email</span>
+            <span *ngIf="email.errors?.['required'] && email.touched" class="form__error"
+              >Поле обязательно для заполнения</span
+            >
+            <span *ngIf="email.errors?.['pattern'] && email.touched" class="form__error"
+              >Неверный формат E-mail</span
+            >
           </label>
 
           <label class="form__label">
             <textarea
               class="form__input form__input--area"
-              name="comments"
+              formControlName="comment"
               placeholder="Ваши пожелания"
             ></textarea>
             <span class="form__value">Комментарий к заказу</span>
@@ -48,55 +86,79 @@
         <div class="cart__options">
           <h3 class="cart__title">Доставка</h3>
           <ul class="cart__options options">
-            <li class="options__item">
+            <p
+              *ngIf="deliveryTypeId.errors?.['required'] && deliveryTypeId.touched"
+              class="form__error-message"
+            >
+              Поле обязательно для заполнения
+            </p>
+            <li *ngFor="let type of deliveryTypes; let i = index" class="options__item">
               <label class="options__label">
                 <input
                   class="options__radio sr-only"
                   type="radio"
-                  name="delivery"
-                  value="0"
-                  checked=""
+                  formControlName="deliveryTypeId"
+                  [value]="type.id"
                 />
-                <span class="options__value"> Самовывоз <b>бесплатно</b> </span>
-              </label>
-            </li>
-            <li class="options__item">
-              <label class="options__label">
-                <input class="options__radio sr-only" type="radio" name="delivery" value="500" />
-                <span class="options__value"> Курьером <b>290 ₽</b> </span>
+                <span class="options__value">
+                  {{ type.title }} <b>{{ type.price }}</b>
+                </span>
               </label>
             </li>
           </ul>
 
           <h3 class="cart__title">Оплата</h3>
-          <ul class="cart__options options">
-            <li class="options__item">
+          <ul *ngIf="isDeliveryTypeSelect" class="cart__options options">
+            <p
+              *ngIf="paymentTypeId.errors?.['required'] && paymentTypeId.touched"
+              class="form__error-message"
+            >
+              Поле обязательно для заполнения
+            </p>
+            <li *ngFor="let type of paymentTypes" class="options__item">
               <label class="options__label">
                 <input
                   class="options__radio sr-only"
                   type="radio"
-                  name="pay"
-                  value="card"
-                  checked=""
+                  formControlName="paymentTypeId"
+                  [value]="type.id"
                 />
-                <span class="options__value"> Картой при получении </span>
-              </label>
-            </li>
-            <li class="options__item">
-              <label class="options__label">
-                <input class="options__radio sr-only" type="radio" name="pay" value="cash" />
-                <span class="options__value"> Наличными при получении </span>
+                <span class="options__value"> {{ type.title }} </span>
               </label>
             </li>
           </ul>
         </div>
       </div>
 
-      <app-order-info></app-order-info>
-      <div class="cart__error form__error-block">
+      <div class="cart__block">
+        <app-order-info [products]="basket.items" [deliveryPrice]="deliveryPrice"></app-order-info>
+        <div class="cart__total">
+          <p>
+            Доставка: <b>{{ deliveryPrice }}</b>
+          </p>
+          <p>
+            Итого: <b>{{ basketTotalQuantity }}</b> товара на сумму
+            <b>{{ basketTotalPrice | number }} ₽</b>
+          </p>
+        </div>
+        <button
+          [disabled]="orderForm.invalid"
+          class="cart__button button button--primary"
+          type="submit"
+        >
+          Оформить заказ
+        </button>
+        <span *ngIf="orderForm.invalid" class="form__error-message">Введите данные</span>
+      </div>
+
+      <div *ngIf="errorMessage" class="cart__error form__error-block">
         <h4>Заявка не отправлена!</h4>
         <p>Похоже произошла ошибка. Попробуйте отправить снова или перезагрузите страницу.</p>
       </div>
     </form>
   </section>
 </main>
+
+<ng-template #loading>
+  <app-loader></app-loader>
+</ng-template>

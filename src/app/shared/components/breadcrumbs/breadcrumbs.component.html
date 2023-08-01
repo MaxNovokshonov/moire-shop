@@ -2,10 +2,21 @@
   <li class="breadcrumbs__item">
     <a class="breadcrumbs__link" [routerLink]="['/products']"> Каталог </a>
   </li>
-  <li class="breadcrumbs__item">
-    <a class="breadcrumbs__link" href="#"> Носки </a>
+  <li *ngIf="categoryID" class="breadcrumbs__item">
+    <a class="breadcrumbs__link" (click)="setCategory()" [routerLink]="['/category', categoryID]">
+      {{ categoryTitle }}
+    </a>
   </li>
-  <li class="breadcrumbs__item">
-    <a class="breadcrumbs__link"> Носки с принтом мороженое </a>
+  <li class="breadcrumbs__item" *ngIf="productTitle">
+    <a class="breadcrumbs__link"> {{ productTitle }} </a>
+  </li>
+  <li class="breadcrumbs__item" *ngIf="cart">
+    <a class="breadcrumbs__link"> Корзина </a>
+  </li>
+  <li *ngIf="order" class="breadcrumbs__item">
+    <a class="breadcrumbs__link" [routerLink]="['/cart']"> Корзина </a>
+  </li>
+  <li *ngIf="order" class="breadcrumbs__item">
+    <a class="breadcrumbs__link"> Оформление заказа </a>
   </li>
 </ul>

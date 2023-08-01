@@ -7,12 +7,12 @@ import { Product } from '../common/interfaces/products';
   providedIn: 'root',
 })
 export class PictureService {
-  selectedColor = new Subject<number>();
+  selectedColor$ = new Subject<number>();
 
   constructor() {}
 
   setSelectedColor(colorId: number) {
-    this.selectedColor.next(colorId);
+    this.selectedColor$.next(colorId);
   }
 
   setImageByColor(value: number, product: ProductInfo | Product): string {

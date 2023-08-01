@@ -1,5 +1,6 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, Output } from '@angular/core';
 import { BasketItem } from '../../../common/interfaces/basket';
+import { BasketService } from '../../../services/basket.service';
 
 @Component({
   selector: 'app-cart-item',
@@ -8,10 +9,11 @@ import { BasketItem } from '../../../common/interfaces/basket';
 })
 export class CartItemComponent implements OnChanges {
   @Input() product: BasketItem;
-
+  @Output() deleteProductEmit = new EventEmitter();
+  @Output() updateProductEmit = new EventEmitter();
   itemQuantity: number;
 
-  constructor() {}
+  constructor(private basketService: BasketService) {}
 
   ngOnChanges(): void {
     this.itemQuantity = this.product.quantity;
@@ -21,11 +23,24 @@ export class CartItemComponent implements OnChanges {
     return this.itemQuantity * this.product.price;
   }
 
-  get BasketTotalPrice() {
-    return this.itemTotalPrice;
-  }
-
   changeQuantity(event: number) {
     this.itemQuantity = event;
+    this.updateProduct(this.product.id, this.itemQuantity);
+  }
+
+  deleteProduct(id: number) {
+    this.basketService.deleteProductByID(id).subscribe((response) => {
+      this.deleteProductEmit.emit(response);
+    });
+  }
+
+  updateProduct(id: number, quantity: number) {
+    this.basketService.updateBasket(id, quantity).subscribe((response) => {
+      const getQuantity = response.items.find((i) => i.quantity === quantity);
+      if (getQuantity) {
+        this.itemQuantity = getQuantity.quantity;
+      }
+      this.basketService.cartTotalPrice.next(this.basketService.getTotalPrice(response));
+    });
   }
 }

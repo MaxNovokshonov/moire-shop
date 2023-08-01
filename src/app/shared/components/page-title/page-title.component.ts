@@ -8,4 +8,5 @@ import { Component, Input } from '@angular/core';
 export class PageTitleComponent {
   @Input() title: string;
   @Input() count: number;
+  @Input() basketNumber: number;
 }
