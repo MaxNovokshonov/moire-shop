@@ -12,6 +12,7 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getAccessKey();
+    this.getBasketQuantity();
   }
 
   get productsAmount() {
@@ -24,6 +25,12 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
         this.basketService.setAccessKey(response.accessKey);
         console.log(response);
       });
+    }
+  }
+
+  getBasketQuantity() {
+    if (!this.basketService.isBasket()) {
+      this.basketService.cartTotalQuantity.next(Number(this.basketService.basketTotalQuantity));
     }
   }
 

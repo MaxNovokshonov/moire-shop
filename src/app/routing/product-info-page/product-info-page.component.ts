@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ProductsService } from '../../services/products.service';
 import { switchMap } from 'rxjs';
 import { ActivatedRoute, Params } from '@angular/router';
-import { ProductColor, ProductInfo } from '../../common/interfaces/productInfo';
+import { ProductInfo } from '../../common/interfaces/productInfo';
+import { PageType } from '../../common/enums/pageType';
 
 @Component({
   selector: 'app-product-info-page',
@@ -11,6 +12,7 @@ import { ProductColor, ProductInfo } from '../../common/interfaces/productInfo';
 })
 export class ProductInfoPageComponent implements OnInit {
   product: ProductInfo;
+  pageType = PageType.PRODUCT_INFO;
 
   constructor(private productsService: ProductsService, private route: ActivatedRoute) {}
 

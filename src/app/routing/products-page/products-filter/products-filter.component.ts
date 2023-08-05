@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ProductsService } from '../../../services/products.service';
 import { FilterColor } from '../../../common/interfaces/colors';
 import { FilterCategory } from '../../../common/interfaces/categories';
@@ -18,6 +18,7 @@ export class ProductsFilterComponent implements OnInit {
   categories: FilterCategory[];
   materials: FilterMaterial[];
   seasons: FilterSeason[];
+  isError = false;
 
   constructor(
     private productsService: ProductsService,
@@ -27,13 +28,21 @@ export class ProductsFilterComponent implements OnInit {
     this.filterForm = this.fb.group({
       page: [1],
       limit: [9],
-      minPrice: [''],
-      maxPrice: [''],
-      categoryId: [0],
+      minPrice: ['', Validators.pattern('^[0-9]+$')],
+      maxPrice: ['', Validators.pattern('^[0-9]+$')],
+      categoryId: [this.filterService.params$.value.categoryId],
       colorIds: this.fb.array([]),
       materialIds: this.fb.array([]),
       seasonIds: this.fb.array([]),
     });
+  }
+
+  get minPrice(): FormControl {
+    return this.filterForm.get('minPrice') as FormControl;
+  }
+
+  get maxPrice(): FormControl {
+    return this.filterForm.get('maxPrice') as FormControl;
   }
 
   get colorsArray(): FormArray {
@@ -54,7 +63,7 @@ export class ProductsFilterComponent implements OnInit {
 
   getFilterData() {
     this.productsService.getAllColors().subscribe((colors) => {
-      colors.forEach((x) => {
+      colors.forEach(() => {
         this.colorsArray.push(this.fb.control(false));
       });
       this.colors = colors;
@@ -65,14 +74,14 @@ export class ProductsFilterComponent implements OnInit {
     });
 
     this.productsService.getAllMaterials().subscribe((materials) => {
-      materials.forEach((x) => {
+      materials.forEach(() => {
         this.materialsArray.push(this.fb.control(false));
       });
       this.materials = materials;
     });
 
     this.productsService.getAllSeasons().subscribe((seasons) => {
-      seasons.forEach((x) => {
+      seasons.forEach(() => {
         this.seasonsArray.push(this.fb.control(false));
       });
       this.seasons = seasons;
@@ -80,6 +89,13 @@ export class ProductsFilterComponent implements OnInit {
   }
 
   submit() {
+    if (this.minPrice.value && this.maxPrice.value && this.minPrice.value > this.maxPrice.value) {
+      this.isError = true;
+      return;
+    }
+
+    this.isError = false;
+
     this.filterForm.value.colorIds = this.filterForm.value.colorIds
       .map((checked: boolean, i: number) => (checked ? this.colors[i].id : null))
       .filter((id: number | null) => id !== null);
@@ -96,7 +112,9 @@ export class ProductsFilterComponent implements OnInit {
   }
 
   clearForm() {
+    this.isError = false;
     this.filterService.resetParams();
     this.filterForm.reset();
+    this.filterForm.patchValue(this.filterService.params$.value);
   }
 }

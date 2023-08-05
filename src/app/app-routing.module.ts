@@ -2,14 +2,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'products', pathMatch: 'full' },
+  { path: '', redirectTo: 'catalog', pathMatch: 'full' },
   {
-    path: 'products',
+    path: 'catalog',
     loadChildren: () =>
       import('./routing/products-page/products.module').then((m) => m.ProductsModule),
   },
   {
-    path: 'products/:id',
+    path: 'product/:id',
     loadChildren: () =>
       import('./routing/product-info-page/product-info.module').then((m) => m.ProductInfoModule),
   },
@@ -28,7 +28,7 @@ const routes: Routes = [
       import('./routing/confirm-page/confirm-page.module').then((m) => m.ConfirmPageModule),
   },
   {
-    path: 'category/:id',
+    path: 'catalog/:id',
     loadChildren: () =>
       import('./routing/products-page/products.module').then((m) => m.ProductsModule),
   },

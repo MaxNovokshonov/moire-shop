@@ -9,8 +9,6 @@ import { Product } from '../common/interfaces/products';
 export class PictureService {
   selectedColor$ = new Subject<number>();
 
-  constructor() {}
-
   setSelectedColor(colorId: number) {
     this.selectedColor$.next(colorId);
   }

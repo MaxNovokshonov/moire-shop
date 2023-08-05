@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { BasketItem } from '../../../common/interfaces/basket';
 import { BasketService } from '../../../services/basket.service';
 
@@ -36,6 +36,8 @@ export class CartItemComponent implements OnChanges {
 
   updateProduct(id: number, quantity: number) {
     this.basketService.updateBasket(id, quantity).subscribe((response) => {
+      this.basketService.cartTotalQuantity.next(this.basketService.getTotalQuantity(response));
+      this.basketService.setBasketQuantity(this.basketService.cartTotalQuantity.value.toString());
       const getQuantity = response.items.find((i) => i.quantity === quantity);
       if (getQuantity) {
         this.itemQuantity = getQuantity.quantity;

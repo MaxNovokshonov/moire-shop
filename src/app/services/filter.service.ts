@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FilterParams } from '../common/interfaces/filterParams';
 import { BehaviorSubject } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +22,7 @@ export class FilterService {
 
   params$ = new BehaviorSubject<FilterParams>(this.defaultParams);
 
-  constructor() {}
+  constructor(private route: ActivatedRoute) {}
 
   updateParams(value: number) {
     this.params$.next({ ...this.params$.value, page: value });

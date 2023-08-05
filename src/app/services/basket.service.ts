@@ -20,13 +20,33 @@ export class BasketService {
     return !!localStorage.getItem('accessKey');
   }
 
+  isBasket(): boolean {
+    return !!localStorage.getItem('basketTotalQuantity');
+  }
+
   setAccessKey(value: string) {
     localStorage.setItem('accessKey', value);
+  }
+
+  setBasketQuantity(value: string) {
+    localStorage.setItem('basketTotalQuantity', value);
+  }
+
+  resetBasketQuantity() {
+    localStorage.removeItem('basketTotalQuantity');
   }
 
   get accessKey(): string | null {
     if (this.isAuthenticated()) {
       return localStorage.getItem('accessKey');
+    } else {
+      return null;
+    }
+  }
+
+  get basketTotalQuantity(): string | null {
+    if (this.isBasket()) {
+      return localStorage.getItem('basketTotalQuantity');
     } else {
       return null;
     }

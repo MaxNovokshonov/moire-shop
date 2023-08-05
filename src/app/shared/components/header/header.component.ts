@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-  cartCounter: number;
+  cartCounter: string | null;
 
   cartSubscription: Subscription;
 
@@ -16,8 +16,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.cartSubscription = this.basketService.cartTotalQuantity.subscribe((totalQuantity) => {
-      this.cartCounter = totalQuantity;
+      this.cartCounter = totalQuantity.toString();
     });
+    this.basketFromLocalStorage;
+  }
+
+  get basketFromLocalStorage() {
+    if (this.basketService.isBasket()) {
+      return (this.cartCounter = this.basketService.basketTotalQuantity!.toString());
+    } else {
+      return;
+    }
   }
 
   ngOnDestroy(): void {

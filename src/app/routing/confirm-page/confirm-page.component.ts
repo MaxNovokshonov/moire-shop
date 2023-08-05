@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { OrderService } from '../../services/order.service';
-import { ActivatedRoute, Params } from '@angular/router';
-import {Observable, switchMap, take} from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { switchMap } from 'rxjs';
 import { OrderResponse } from '../../common/interfaces/order';
-import {BasketService} from "../../services/basket.service";
+import { BasketService } from '../../services/basket.service';
 
 @Component({
   selector: 'app-confirm-page',
@@ -13,16 +13,18 @@ import {BasketService} from "../../services/basket.service";
 export class ConfirmPageComponent implements OnInit {
   order: OrderResponse;
 
-  constructor(private orderService: OrderService, private route: ActivatedRoute, private basketService: BasketService) {
-
-  }
+  constructor(
+    private orderService: OrderService,
+    private route: ActivatedRoute,
+    private basketService: BasketService,
+  ) {}
 
   ngOnInit(): void {
-    this.getOrder()
+    this.getOrder();
   }
 
   get orderTotalQuantity() {
-    return this.basketService.getTotalQuantity(this.order.basket)
+    return this.basketService.getTotalQuantity(this.order.basket);
   }
 
   getOrder() {

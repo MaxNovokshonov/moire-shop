@@ -2,6 +2,7 @@
   <div class="content__top">
     <app-breadcrumbs
       *ngIf="product"
+      [pageType]="pageType"
       [categoryID]="product.category.id"
       [categoryTitle]="product.category.title"
       [productTitle]="product.title"

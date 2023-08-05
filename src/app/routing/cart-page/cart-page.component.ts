@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BasketService } from '../../services/basket.service';
 import { BasketResponse } from '../../common/interfaces/basket';
+import { PageType } from '../../common/enums/pageType';
 
 @Component({
   selector: 'app-cart-page',
@@ -11,6 +12,7 @@ export class CartPageComponent implements OnInit {
   basket: BasketResponse;
   basketTotalQuantity: number;
   cartTotalPrice: number;
+  pageType = PageType.CART;
 
   constructor(private basketService: BasketService) {}
 

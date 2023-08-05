@@ -1,5 +1,6 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FilterService } from '../../../services/filter.service';
+import { PageType } from '../../../common/enums/pageType';
 
 @Component({
   selector: 'app-breadcrumbs',
@@ -7,11 +8,10 @@ import { FilterService } from '../../../services/filter.service';
   styleUrls: ['./breadcrumbs.component.scss'],
 })
 export class BreadcrumbsComponent {
+  @Input() pageType: PageType;
   @Input() categoryID: number;
   @Input() categoryTitle: string;
   @Input() productTitle: string;
-  @Input() cart: boolean;
-  @Input() order: boolean;
 
   constructor(private filterService: FilterService) {}
 

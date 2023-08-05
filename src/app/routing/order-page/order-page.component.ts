@@ -6,6 +6,7 @@ import { OrderService } from '../../services/order.service';
 import { DeliveryType, PaymentType } from '../../common/interfaces/order';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { PageType } from '../../common/enums/pageType';
 
 @Component({
   selector: 'app-order-page',
@@ -21,6 +22,7 @@ export class OrderPageComponent implements OnInit, OnDestroy {
   deliveryPrice: string;
   deliveryTypeSubscription = new Subscription();
   errorMessage = false;
+  pageType = PageType.ORDER;
 
   constructor(
     private basketService: BasketService,
@@ -113,8 +115,10 @@ export class OrderPageComponent implements OnInit, OnDestroy {
         this.orderService.order.next(response);
         this.router.navigate(['order', response.id]);
       },
-      (error) => (this.errorMessage = true),
+      () => (this.errorMessage = true),
     );
+    this.basketService.cartTotalQuantity.next(0);
+    this.basketService.resetBasketQuantity();
   }
 
   ngOnDestroy(): void {

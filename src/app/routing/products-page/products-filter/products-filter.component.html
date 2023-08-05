@@ -1,21 +1,29 @@
 <aside class="filter">
   <form [formGroup]="filterForm" (ngSubmit)="submit()" class="filter__form form">
     <fieldset class="form__block">
+      <span *ngIf="isError" class="error-message">Данные не корректны.</span>
       <legend class="form__legend">Цена</legend>
       <label class="form__label form__label--price">
         <input class="form__input" formControlName="minPrice" type="text" placeholder="0" />
         <span class="form__value">От</span>
+        <span *ngIf="minPrice.errors?.['pattern']" class="error-message"
+          >Допускаются только цифры</span
+        >
       </label>
       <label class="form__label form__label--price">
         <input class="form__input" formControlName="maxPrice" type="text" placeholder="0" />
         <span class="form__value">До</span>
+        <span *ngIf="maxPrice.errors?.['pattern']" class="error-message"
+          >Допускаются только цифры</span
+        >
       </label>
     </fieldset>
 
     <fieldset class="form__block">
       <legend class="form__legend">Категория</legend>
       <label class="form__label form__label--select">
-        <select class="form__select" type="text" formControlName="categoryId">
+        <select class="form__select" formControlName="categoryId">
+          <option [ngValue]="0">Все категории</option>
           <option *ngFor="let category of categories" [ngValue]="category.id">
             {{ category.title }}
           </option>
@@ -65,8 +73,19 @@
       </ul>
     </fieldset>
 
-    <button class="filter__submit button button--primary" type="submit">Применить</button>
-    <button (click)="clearForm()" class="filter__reset button button--second" type="button">
+    <button
+      [disabled]="filterForm.invalid"
+      class="filter__submit button button--primary"
+      type="submit"
+    >
+      Применить
+    </button>
+    <button
+      *ngIf="!filterForm.pristine"
+      (click)="clearForm()"
+      class="filter__reset button button--second"
+      type="button"
+    >
       Сбросить
     </button>
   </form>

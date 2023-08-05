@@ -2,9 +2,7 @@
   <div class="header__wrapper">
     <span class="header__info">Каталог</span>
 
-    <a
-      [routerLink]="['/products']"
-      class="header__logo" >
+    <a [routerLink]="['/catalog']" class="header__logo">
       <img
         src="assets/img/svg/logo-moire.svg"
         alt="Логотип интернет магазина Moire"
@@ -15,9 +13,7 @@
 
     <a class="header__tel"> 8 800 600 90 09 </a>
 
-    <a
-      [routerLink]="['/cart']"
-      class="header__cart" aria-label="Корзина с товарами">
+    <a [routerLink]="['/cart']" class="header__cart" aria-label="Корзина с товарами">
       <svg width="19" height="24">
         <use xlink:href="assets/img/svg/iconSprite.svg#icon-cart"></use>
       </svg>

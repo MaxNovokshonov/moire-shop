@@ -1,4 +1,4 @@
-import { NgModule, Provider } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -9,14 +9,7 @@ import { ProductInfoModule } from './routing/product-info-page/product-info.modu
 import { CartModule } from './routing/cart-page/cart.module';
 import { OrderPageModule } from './routing/order-page/order-page.module';
 import { ConfirmPageModule } from './routing/confirm-page/confirm-page.module';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { AccessKeyInterceptor } from './services/accesskey.interceptor';
-
-// const INTERCEPTOR_PROVIDER: Provider = {
-//   provide: HTTP_INTERCEPTORS,
-//   multi: true,
-//   useClass: AccessKeyInterceptor,
-// };
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent],
